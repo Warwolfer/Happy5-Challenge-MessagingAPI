@@ -5,9 +5,9 @@ module.exports = {
   development: {
     client: 'postgresql',
     connection: {
-      host:     'localhost',
+      host: 'localhost',
       database: 'messaging_challenge',
-      user:     'messaging_user',
+      user: 'messaging_user',
       password: 'messaging_password',
       port: '5432'
     },
@@ -16,6 +16,7 @@ module.exports = {
       max: 10
     },
     migrations: {
+      directory: './db/migrations',
       tableName: 'knex_migrations'
     }
   }
