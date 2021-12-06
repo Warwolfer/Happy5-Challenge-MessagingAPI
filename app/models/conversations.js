@@ -20,6 +20,7 @@ class Conversations extends Model {
 
   static get relationMappings() {
     const Users = require('./users');
+    const Messages = require('./messages');
     return {
       sender: {
         relation: Model.BelongsToOneRelation,
@@ -37,6 +38,14 @@ class Conversations extends Model {
           to: 'users.id'
         }
       },
+      messages: {
+        relation: Model.HasManyRelation,
+        modelClass: Messages,
+        join: {
+          from: 'conversations.id',
+          to: 'messages.conversationId'
+        }
+      }
     };
   }
 }

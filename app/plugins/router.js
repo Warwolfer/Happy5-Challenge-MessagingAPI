@@ -1,6 +1,7 @@
 const routes = [].concat(
   require('../routes/api/base'),
   require('../routes/api/users'),
+  require('../routes/api/conversations')
 );
 module.exports = {
   plugin: {
