@@ -11,9 +11,9 @@ class Users extends Model {
       type: 'object',
       required: ['name'],
       properties: {
-        id: {type: 'string', format: 'uuid'},
+        id: {type: 'string'},
         name: {type: 'string'},
-        created_at: {type: 'string', format: 'date-time'}
+        created_at: {type: 'string'}
       }
     };
   } // jsonSchema

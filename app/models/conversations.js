@@ -10,10 +10,10 @@ class Conversations extends Model {
     return {
       type: 'object',
       properties: {
-        id: {type: 'string', format: 'uuid'},
-        senderId: {type: 'string', format: 'uuid'},
-        recipientId: {type: 'string', format: 'uuid'},
-        created_at: {type: 'string', format: 'date-time'}
+        id: {type: 'string'},
+        senderId: {type: 'string'},
+        recipientId: {type: 'string'},
+        created_at: {type: 'string'}
       }
     };
   } // jsonSchema

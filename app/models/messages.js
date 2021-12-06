@@ -10,12 +10,12 @@ class Messages extends Model {
     return {
       type: 'object',
       properties: {
-        id: {type: 'string', format: 'uuid'},
-        conversationId: {type: 'string', format: 'uuid'},
-        senderId: {type: 'string', format: 'uuid'},
+        id: {type: 'string'},
+        conversationId: {type: 'string'},
+        senderId: {type: 'string'},
         content: {type: 'string'},
-        created_at: {type: 'string', format: 'date-time'},
-        read_at: {type: 'string', format: 'date-time'},
+        created_at: {type: 'string'},
+        read_at: {type: 'string'},
       }
     };
   } // jsonSchema
