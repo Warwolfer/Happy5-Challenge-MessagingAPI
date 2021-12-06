@@ -1,9 +1,10 @@
 {
   "name": "happy5-challenge-messagingapi",
   "version": "1.0.0",
-  "description": "API service for a ​Messaging Feature​ similar to how WhatsApp works, built with Hapi.js",
+  "description": "API service for a Messaging Feature similar to how WhatsApp works, built with Hapi.js",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,6 +18,16 @@
   },
   "homepage": "https://github.com/Warwolfer/Happy5-Challenge-MessagingAPI#readme",
   "dependencies": {
-    "@hapi/hapi": "^20.2.1"
+    "@hapi/hapi": "^20.2.1",
+    "hapi-swagger": "^14.2.4",
+    "knex": "^0.95.14",
+    "moment": "^2.29.1",
+    "objection": "^3.0.0",
+    "pg": "^8.7.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.14.0",
+    "nodemon": "^2.0.15"
   }
 }
