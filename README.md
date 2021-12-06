@@ -25,3 +25,4 @@ with [Hapi.js](https://github.com/hapijs/hapi)
   ```npm run dev```
 * For default configuration the service will be hosted on http://localhost:3333. You can change this if the port is
   used.
+* Access the API documentation in `/documentation`

@@ -12,6 +12,13 @@ module.exports = {
   },
   options: {
     client: 'pg',
-    connection: 'messaging_challenge'
+    connection: {
+      host: 'localhost',
+      database: 'messaging_challenge',
+      user: 'messaging_user',
+      password: 'messaging_password',
+      port: '5432',
+      charset: 'utf8',
+    }
   }
 };

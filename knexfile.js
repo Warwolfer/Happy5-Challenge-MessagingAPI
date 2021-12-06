@@ -3,13 +3,14 @@
 module.exports = {
 
   development: {
-    client: 'postgresql',
+    client: 'pg',
     connection: {
       host: 'localhost',
       database: 'messaging_challenge',
       user: 'messaging_user',
       password: 'messaging_password',
-      port: '5432'
+      port: '5432',
+      charset: 'utf8',
     },
     pool: {
       min: 2,

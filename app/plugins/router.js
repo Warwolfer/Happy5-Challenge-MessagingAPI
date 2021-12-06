@@ -1,5 +1,6 @@
 const routes = [].concat(
   require('../routes/api/base'),
+  require('../routes/api/users'),
 );
 module.exports = {
   plugin: {
