@@ -1,7 +1,6 @@
 # Happy5-Challenge-MessagingAPI
 
-API service for a ​Messaging Feature​ similar to how WhatsApp works, built
-with [Hapi.js](https://github.com/hapijs/hapi)
+API service for a Messaging Feature similar to how WhatsApp works, built with [Hapi.js](https://github.com/hapijs/hapi)
 
 ## Requirements
 
@@ -12,7 +11,7 @@ with [Hapi.js](https://github.com/hapijs/hapi)
 
 * Create a PostgreSQL database **messaging_challenge** on your machine.
 * Create a user **messaging_user** with password of **messaging_password**
-* Grant superuser role
+* Grant superuser role to **messaging_user**. This is required to create the uuid-ossp plugin.
 
 ## How to run
 
@@ -25,4 +24,4 @@ with [Hapi.js](https://github.com/hapijs/hapi)
   ```npm run dev```
 * For default configuration the service will be hosted on http://localhost:3333. You can change this if the port is
   used.
-* Access the API documentation in `/documentation`
+* Access the API documentation in `/documentation`. Play around with the endpoints in the swagger page!
