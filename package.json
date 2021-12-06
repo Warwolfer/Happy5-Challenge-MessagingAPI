@@ -1,0 +1,22 @@
+{
+  "name": "happy5-challenge-messagingapi",
+  "version": "1.0.0",
+  "description": "API service for a ​Messaging Feature​ similar to how WhatsApp works, built with Hapi.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Warwolfer/Happy5-Challenge-MessagingAPI.git"
+  },
+  "author": "Kenny",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Warwolfer/Happy5-Challenge-MessagingAPI/issues"
+  },
+  "homepage": "https://github.com/Warwolfer/Happy5-Challenge-MessagingAPI#readme",
+  "dependencies": {
+    "@hapi/hapi": "^20.2.1"
+  }
+}
