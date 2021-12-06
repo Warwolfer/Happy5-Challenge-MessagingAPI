@@ -4,19 +4,20 @@ const moment = require('moment');
 const getConversationsByUserId = async function (id) {
   const res = {};
   try {
-    const user = await Conversation.query()
-      .where('senderId', '=', id).first();
-    const lastChat = await user.$relatedQuery('messages')
-      .orderBy('created_at')
-      .first();
-    const unreadChat = await user.$relatedQuery('messages')
-      .whereNull('read_at')
-      .count();
-    user.lastChat = lastChat;
-    user.unreadCount = unreadChat[0].count;
+    const users = await Conversation.query()
+      .where('senderId', '=', id);
+    for (const user of users) {
+      const lastChat = await user.$relatedQuery('messages')
+        .orderBy('created_at', 'desc').first();
+      const unreadChat = await user.$relatedQuery('messages')
+        .whereNull('read_at')
+        .count();
+      user.lastChat = lastChat;
+      user.unreadCount = unreadChat[0].count;
+    }
     res.err = false;
     res.message = 'Conversations found';
-    res.data = user;
+    res.data = users;
     return res;
   } catch (err) {
     console.log(err);

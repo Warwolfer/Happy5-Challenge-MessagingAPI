@@ -1,6 +1,5 @@
 const conversationController = require('../../controllers/conversations');
 const joi = require('joi');
-const userController = require('../../controllers/users');
 
 module.exports = [
   {
@@ -27,7 +26,7 @@ module.exports = [
           id: joi.string().required()
         })
       },
-      description: 'Show all conversations by user',
+      description: 'Read all unread messages in a conversation',
       tags: ['api', 'Conversations'],
       auth: false
     }
