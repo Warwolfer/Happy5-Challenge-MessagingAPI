@@ -12,7 +12,6 @@ const getMessagesByConversationId = async function (id) {
     res.data = messages;
     return res;
   } catch (err) {
-    console.log(err);
     res.err = true;
     res.message = 'No Conversations found';
     res.data = null;
@@ -45,6 +44,7 @@ const createMessage = async function (data) {
       recipientId: senderConversation.senderId
     });
 
+    /* istanbul ignore else */
     if (!recipientConversation) {
       // Create a conversation for the recipient if it does not exist yet
       recipientConversation = await Conversation.query()

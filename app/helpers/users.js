@@ -3,7 +3,7 @@ const Users = require('../models/users');
 const getUsers = async function () {
   const res = {};
   try {
-    const user = await Users.query();
+    const user = await Users.query().then();
     res.err = false;
     res.message = 'Users found';
     res.data = user;
@@ -17,7 +17,6 @@ const getUsers = async function () {
 };
 
 const createUser = async function (data) {
-  console.log(data);
   const res = {};
   try {
     const user = await Users.query().insert(data);

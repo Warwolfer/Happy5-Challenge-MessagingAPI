@@ -20,7 +20,6 @@ const getConversationsByUserId = async function (id) {
     res.data = users;
     return res;
   } catch (err) {
-    console.log(err);
     res.err = true;
     res.message = 'No Conversations found';
     res.data = null;
@@ -68,7 +67,6 @@ const readConversation = async function (id) {
     res.data = true;
     return res;
   } catch (err) {
-    console.log(err);
     res.err = true;
     res.message = 'Failed to read Conversation';
     res.data = null;
