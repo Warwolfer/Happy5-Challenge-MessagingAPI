@@ -1,5 +1,7 @@
 # Happy5-Challenge-MessagingAPI
 
+![](https://img.shields.io/badge/Coverage-35%25-F2C572.svg?prefix=$coverage$)
+
 API service for a Messaging Feature similar to how WhatsApp works, built with [Hapi.js](https://github.com/hapijs/hapi)
 
 ## Requirements
