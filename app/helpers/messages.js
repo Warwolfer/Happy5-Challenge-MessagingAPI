@@ -31,6 +31,12 @@ const createMessage = async function (data) {
       res.data = null;
       return res;
     }
+    if (senderId !== senderConversation.senderId) {
+      res.err = true;
+      res.message = 'Cannot send a message in a conversation that is not yours';
+      res.data = null;
+      return res;
+    }
     const senderMessage = await senderConversation.$relatedQuery('messages').insert(
       {
         senderId,

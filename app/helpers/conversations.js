@@ -12,14 +12,18 @@ const getConversationsByUserId = async function (id) {
       const unreadChat = await user.$relatedQuery('messages')
         .whereNull('read_at')
         .count();
-      user.lastChat = lastChat;
+      user.lastChat = lastChat ? lastChat : {created_at: moment()};
       user.unreadCount = unreadChat[0].count;
     }
+    users.sort((a, b) => {
+      return b.lastChat.created_at - a.lastChat.created_at;
+    });
     res.err = false;
     res.message = 'Conversations found';
     res.data = users;
     return res;
   } catch (err) {
+    console.log(err);
     res.err = true;
     res.message = 'No Conversations found';
     res.data = null;
@@ -39,7 +43,7 @@ const createConversation = async function (data) {
     const conversationExists = await Conversation.query().findOne(data);
     if (conversationExists) {
       res.err = true;
-      res.message = 'Conversation already exists';
+      res.message = 'Conversation with this user already exists';
       res.data = null;
       return res;
     }

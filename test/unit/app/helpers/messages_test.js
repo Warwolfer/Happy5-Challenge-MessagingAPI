@@ -48,6 +48,18 @@ describe('Messages Helper', () => {
       expect(result.err).to.equal(false);
       Conversations.query.restore();
     });
+    it('should handle trying to send a message to conversation that is not yours', async () => {
+      let callback = sinon.stub(Conversations, 'query');
+      callback.onCall(0).returns({
+        findById: sinon.stub().resolves({
+          $relatedQuery: sinon.stub().returnsThis(),
+          insert: sinon.stub().resolves({senderId: 'testId'}),
+        })
+      });
+      const result = await messagesHelper.createMessage({senderId: 'testId'});
+      expect(result.err).to.equal(true);
+      Conversations.query.restore();
+    });
     it('should handle conversation does not exist', async () => {
       sinon.stub(Conversations, 'query').returns({
         findById: sinon.stub().resolves(null)

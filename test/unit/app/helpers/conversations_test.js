@@ -12,8 +12,36 @@ describe('Conversations Helper', () => {
           {
             $relatedQuery: sinon.stub().returnsThis(),
             orderBy: sinon.stub().returnsThis(),
-            first: sinon.stub().resolves('lastChat'),
-            whereNull: sinon.stub().returnsThis('lastChat'),
+            first: sinon.stub().resolves({created_at: '2021-12-12'}),
+            whereNull: sinon.stub().returnsThis('test'),
+            count: sinon.stub().resolves([{count: 1}]),
+          }, {
+            $relatedQuery: sinon.stub().returnsThis(),
+            orderBy: sinon.stub().returnsThis(),
+            first: sinon.stub().resolves({created_at: '2021-12-15'}),
+            whereNull: sinon.stub().returnsThis('test'),
+            count: sinon.stub().resolves([{count: 1}]),
+          }
+        ])
+      });
+      const result = await conversationsHelper.getConversationsByUserId('testId');
+      expect(result.err).to.equal(false);
+      Conversations.query.restore();
+    });
+    it('should handle success no lastchat', async () => {
+      sinon.stub(Conversations, 'query').returns({
+        where: sinon.stub().resolves([
+          {
+            $relatedQuery: sinon.stub().returnsThis(),
+            orderBy: sinon.stub().returnsThis(),
+            first: sinon.stub().resolves(null),
+            whereNull: sinon.stub().returnsThis('test'),
+            count: sinon.stub().resolves([{count: 1}]),
+          }, {
+            $relatedQuery: sinon.stub().returnsThis(),
+            orderBy: sinon.stub().returnsThis(),
+            first: sinon.stub().resolves({created_at: '2021-12-15'}),
+            whereNull: sinon.stub().returnsThis('test'),
             count: sinon.stub().resolves([{count: 1}]),
           }
         ])
@@ -44,7 +72,7 @@ describe('Conversations Helper', () => {
       callback.onCall(2).returns({
         insert: sinon.stub().resolves(true),
       });
-      const result = await conversationsHelper.createConversation('testId');
+      const result = await conversationsHelper.createConversation({senderId: 'test', recipientId: 'test2'});
       expect(result.err).to.equal(false);
       Conversations.query.restore();
     });
@@ -52,7 +80,7 @@ describe('Conversations Helper', () => {
       sinon.stub(Conversations, 'query').returns({
         findOne: sinon.stub().resolves(true)
       });
-      const result = await conversationsHelper.createConversation({name: 'test'});
+      const result = await conversationsHelper.createConversation({senderId: 'test', recipientId: 'test2'});
       expect(result.err).to.equal(true);
       Conversations.query.restore();
     });
@@ -64,7 +92,7 @@ describe('Conversations Helper', () => {
       stubQuery({
         model: Conversations, isException: true
       });
-      const result = await conversationsHelper.createConversation({name: 'test'});
+      const result = await conversationsHelper.createConversation({senderId: 'test', recipientId: 'test2'});
       expect(result.err).to.equal(true);
       Conversations.query.restore();
     });
