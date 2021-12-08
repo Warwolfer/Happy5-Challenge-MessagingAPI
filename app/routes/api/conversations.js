@@ -18,7 +18,7 @@ module.exports = [
     }
   }, {
     method: 'PATCH',
-    path: '/conversations/by_user/{id}',
+    path: '/conversations/by_conversation/{id}',
     handler: conversationController.readConversation,
     options: {
       validate: {
