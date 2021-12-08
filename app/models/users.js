@@ -20,6 +20,7 @@ class Users extends Model {
 
   static get relationMappings() {
     const Conversations = require('./conversations');
+    const GroupConversations = require('./groupConversations');
     return {
       conversations: {
         relation: Model.HasManyRelation,
@@ -27,6 +28,18 @@ class Users extends Model {
         join: {
           from: 'users.id',
           to: 'conversations.senderId'
+        }
+      },
+      groupConversations: {
+        relation: Model.ManyToManyRelation,
+        modelClass: GroupConversations,
+        join: {
+          from: 'users.id',
+          through: {
+            from: 'groupConversationParticipants.userId',
+            to: 'groupConversationParticipants.groupConversationId',
+          },
+          to: 'groupConversations.id'
         }
       },
     };
