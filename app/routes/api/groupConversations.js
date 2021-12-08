@@ -24,6 +24,9 @@ module.exports = [
       validate: {
         params: joi.object().keys({
           id: joi.string().required()
+        }),
+        payload: joi.object().keys({
+          userId: joi.string().required()
         })
       },
       description: 'Read all unread messages in a group conversation',

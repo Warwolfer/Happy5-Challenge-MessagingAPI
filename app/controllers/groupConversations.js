@@ -51,7 +51,8 @@ const inviteToGroupConversation = async function (request, res) {
 
 const readGroupConversation = async function (request, res) {
   const id = request.params.id;
-  const groupConversation = await groupConversationHelper.readGroupConversation(id);
+  const userId = request.payload.userId;
+  const groupConversation = await groupConversationHelper.readGroupConversation(id, userId);
   if (groupConversation.err) {
     return res.response({
       status: false,

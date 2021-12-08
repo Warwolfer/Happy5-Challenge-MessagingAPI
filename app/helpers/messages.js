@@ -8,12 +8,12 @@ const getMessagesByConversationId = async function (id) {
       .findById(id);
     const messages = await conversation.$relatedQuery('messages');
     res.err = false;
-    res.message = 'Conversations found';
+    res.message = 'Messages found';
     res.data = messages;
     return res;
   } catch (err) {
     res.err = true;
-    res.message = 'No Conversations found';
+    res.message = 'No Messages found';
     res.data = null;
     return res;
   }

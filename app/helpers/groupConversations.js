@@ -12,11 +12,17 @@ const getGroupConversationsByUserId = async function (id) {
     for (const group of groups) {
       const lastChat = await group.$relatedQuery('groupMessages')
         .orderBy('created_at', 'desc').first();
-      // const unreadChat = await group.$relatedQuery('messages')
-      //   .whereNull('read_at')
-      //   .count();
+      const unreadChat = await group.$relatedQuery('groupMessages');
+      let count = 0;
+      for (const chat of unreadChat) {
+        if (chat.read !== null) {
+          if (!chat.read.some(e => e.read_by === id)) {
+            count += 1;
+          }
+          group.unreadCount = count;
+        }
+      }
       group.lastChat = lastChat ? lastChat : {created_at: moment()};
-      //user.unreadCount = unreadChat[0].count;
     }
     groups.sort((a, b) => {
       return b.lastChat.created_at - a.lastChat.created_at;
@@ -26,13 +32,15 @@ const getGroupConversationsByUserId = async function (id) {
     res.data = groups;
     return res;
   } catch (err) {
+    console.log('error dong');
     console.log(err);
     res.err = true;
     res.message = 'No Group Conversations found';
     res.data = null;
     return res;
   }
-};
+}
+;
 
 const createGroupConversation = async function (data) {
   const res = {};
@@ -79,19 +87,41 @@ const inviteToGroupConversation = async function (data) {
   }
 };
 
-const readConversation = async function (id) {
+const readGroupConversation = async function (id, userId) {
   const res = {};
   try {
-    const conversation = await GroupConversation.query()
-      .findById(id);
-    const update = await conversation.$relatedQuery('messages')
-      .whereNull('read_at')
-      .patch({read_at: moment().format().toString()});
+    const groupConversation = await GroupConversation.query().findById(id);
+    if (!groupConversation) {
+      res.err = true;
+      res.message = 'Conversation does not exists';
+      res.data = null;
+      return res;
+    }
+    const isGroupParticipant = await groupConversation.$relatedQuery('participants')
+      .findOne({id: userId});
+
+    if (!isGroupParticipant) {
+      res.err = true;
+      res.message = 'Cannot read a conversation where you are not a member in';
+      res.data = null;
+      return res;
+    }
+
+    const groupMessages = await groupConversation.$relatedQuery('groupMessages');
+    for (const message of groupMessages) {
+      if (message.read.filter(e => e.read_by !== id).length > 0) {
+        // read where haven't read yet
+        let read = JSON.stringify([{read_by: id, read_at: moment().format().toString()}, ...message.read]);
+        console.log(read);
+        await message.$query().patch({read: read});
+      }
+    }
     res.err = false;
     res.message = 'Conversation read';
     res.data = true;
     return res;
   } catch (err) {
+    console.log(err);
     res.err = true;
     res.message = 'Failed to read Conversation';
     res.data = null;
@@ -102,6 +132,6 @@ const readConversation = async function (id) {
 module.exports = {
   getGroupConversationsByUserId,
   createGroupConversation,
-  readConversation,
+  readGroupConversation,
   inviteToGroupConversation
 };
