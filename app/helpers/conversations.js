@@ -30,6 +30,12 @@ const getConversationsByUserId = async function (id) {
 const createConversation = async function (data) {
   const res = {};
   try {
+    if (data.senderId == data.recipientId) {
+      res.err = true;
+      res.message = 'Cannot start a conversation with yourself';
+      res.data = null;
+      return res;
+    }
     const conversationExists = await Conversation.query().findOne(data);
     if (conversationExists) {
       res.err = true;

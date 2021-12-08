@@ -56,6 +56,10 @@ describe('Conversations Helper', () => {
       expect(result.err).to.equal(true);
       Conversations.query.restore();
     });
+    it('should handle trying to start conversation with yourself', async () => {
+      const result = await conversationsHelper.createConversation({senderId: 'test', recipientId: 'test'});
+      expect(result.err).to.equal(true);
+    });
     it('should handle failure', async () => {
       stubQuery({
         model: Conversations, isException: true
